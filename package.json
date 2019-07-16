@@ -1,0 +1,19 @@
+{
+  "name": "toptal-cycle-demo",
+  "version": "1.0.0",
+  "description": "A demo of the Cycle.js framework for the companion Toptal Blog article.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nphyx/toptal-cycle-demo.git"
+  },
+  "author": "Justen Robertson <nphyxx@gmail.com> (http://justen.us)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nphyx/toptal-cycle-demo/issues"
+  },
+  "homepage": "https://github.com/nphyx/toptal-cycle-demo#readme"
+}
