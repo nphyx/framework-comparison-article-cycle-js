@@ -75,7 +75,8 @@ body {
   overflow: hidden;
 }
 
-.header-image > img {
+.header-image > img,
+.header-image > svg {
   flex: 1;
   min-width: 100%;
   min-height: 100%;
