@@ -15,5 +15,25 @@
   "bugs": {
     "url": "https://github.com/nphyx/toptal-cycle-demo/issues"
   },
-  "homepage": "https://github.com/nphyx/toptal-cycle-demo#readme"
+  "homepage": "https://github.com/nphyx/toptal-cycle-demo#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "@cycle/dom": "^22.3.0",
+    "@cycle/http": "^15.1.0",
+    "@cycle/isolate": "^5.0.0",
+    "@cycle/run": "^5.2.0",
+    "babel-loader": "^8.0.6",
+    "cycle-onionify": "^6.1.0",
+    "eslint": "^6.0.1",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-json": "^1.4.0",
+    "fs-magic": "^2.1.1",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.0.2",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.6",
+    "xstream": "^11.11.0"
+  }
 }
