@@ -13,27 +13,51 @@ import {makeLogDriver} from "./drivers/log"
 // top level vdom
 import buildDom from "./dom/index"
 
-// the URL for our feed list, prepended to all requests
-const feedURL = "https://codingthat-quick-json-back-end-2.glitch.me/posts"
+/**
+ * Create a request object from a query string taken from the search form input.
+ * @param {string} queryString
+ * @return {Object}
+ */
+const queryToRequest = (queryString) => ({
+  url: "https://codingthat-quick-json-back-end-2.glitch.me/posts" + "?q=" + queryString,
+  category: "query result"
+})
 
 /**
  * The main `run` function.
  * @param {Object} sources a collection of source streams
  * @param {Stream} sources.DOM the source stream provided by the DOM driver
  * @param {Stream} sources.HTTP the source stream provided by the HTTP driver
- * @param {Stream} sources.ONION the source stream provided by the onion driver
  * @return {Object} a collection of sink streams
  */
 function main(sources) {
-  const { DOM, HTTP, LOG } = sources
-  // start our request stream with a default query of "engineering"
-  // label the responses "query result"
-  const request$ = xs
-    .create()
-    .startWith({ url: feedURL + "?q=engineering", category: "query result" })
+  const { DOM, HTTP } = sources
+
+  // we'll select submit events from the search form, pull out the query string, and
+  // map it to the query object that the HTTP driver expects
+  const request$ = DOM
+    // DOM emits a stream of all our elements, we'll filter out everything but
+    // the search form
+    .select('#search-form')
+    // we only care about form submit events, so let's get a stream of those
+    .events('submit', { preventDefault: true })
+    // pull out the value of the 'q' input, resulting in a stream of query strings
+    .map(ev => new FormData(ev.target).get('q'))
+    // we want to send an initial request for "engineering" articles, so start with that
+    .startWith("engineering")
+    // finally, map the stream of strings to a stream of request objects
+    .map(queryToRequest)
+
+  // the HTTP driver emits a stream of responses. We labeled our queries as
+  // 'query result' in the queryToRequest function, let's pull out the corresponding
+  // responses here
   const response$ = HTTP
     .select("query result")
+    // HTTP.select gives us a stream of streams, let's flatten that into a single stream
     .flatten()
+    // since we're connecting the response$ directly to the vdom$, it needs an initial
+    // value. in a more complete app we'd have a state driver to manage data but this
+    // is fine for now.
     .startWith({ body: [] })
 
   // buildDom will handle updating the dom with the query responses
@@ -45,7 +69,7 @@ function main(sources) {
     response$.map(res => ({ type: 'response', content: res.body }))
   )
 
-  // return the collection of sinks
+  // the collection of sinks
   return {LOG: log$, DOM: vdom$, HTTP: request$}
 }
 
