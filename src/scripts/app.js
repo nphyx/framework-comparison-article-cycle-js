@@ -13,6 +13,9 @@ import {makeLogDriver} from "./drivers/log"
 // top level vdom
 import buildDom from "./dom/index"
 
+// the URL for our feed list, prepended to all requests
+const feedURL = "https://codingthat-quick-json-back-end-2.glitch.me/posts"
+
 /**
  * The main `run` function.
  * @param {Object} sources a collection of source streams
@@ -23,11 +26,27 @@ import buildDom from "./dom/index"
  */
 function main(sources) {
   const { DOM, HTTP, LOG } = sources
-  const state$ = xs.of({bodyText: "lorem ipsum"})
-  const vdom$ = state$.map(buildDom)
+  // start our request stream with a default query of "engineering"
+  // label the responses "query result"
+  const request$ = xs
+    .create()
+    .startWith({ url: feedURL + "?q=engineering", category: "query result" })
+  const response$ = HTTP
+    .select("query result")
+    .flatten()
+    .startWith({ body: [] })
+
+  // buildDom will handle updating the dom with the query responses
+  const vdom$ = response$.map(res => buildDom(res.body))
+
+  // let's log all requests and responses to console
+  const log$ = xs.merge(
+    request$.map(req => ({ type: 'query', content: req })),
+    response$.map(res => ({ type: 'response', content: res.body }))
+  )
 
   // return the collection of sinks
-  return {LOG: state$, DOM: vdom$}
+  return {LOG: log$, DOM: vdom$, HTTP: request$}
 }
 
 // set up sources

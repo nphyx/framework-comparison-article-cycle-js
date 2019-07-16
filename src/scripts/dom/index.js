@@ -1,8 +1,12 @@
-import {header, h1, p} from "@cycle/dom"
+import {section, h1, ul, li, a} from "@cycle/dom"
 
-export default function build(state) {
-  return header([
-    h1("Hello, World"),
-    p(state.bodyText)
+const entry = (article) => li(
+  a({props:{href:article.url}}, article.title)
+)
+
+export default function build(articles) {
+  return section([
+    h1("Articles"),
+    ul(articles.map(entry))
   ])
 }
