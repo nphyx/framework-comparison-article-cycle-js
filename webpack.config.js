@@ -4,8 +4,8 @@ module.exports = {
   entry: {
     "scripts/app": path.resolve(__dirname, "src/scripts/app.js")
   },
-  mode: "development",
-  devtool: "source-map",
+  mode: "production",
+  // devtool: "source-map",
   output: {
     path: path.resolve(__dirname, "dist/"),
     filename: "[name].js"
