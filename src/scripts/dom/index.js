@@ -32,7 +32,7 @@ export default function build(articles) {
         "made with ",
         a({ props: { href: "https://cycle.js.org", target: "_blank" } }, "Cycle.js"),
         ". Check out the source on ",
-        a({ props: { href: "https://github.com/nphyx/framework-comparison-article-cyclejs", target: "_blank" } }, "Github"),
+        a({ props: { href: "https://github.com/nphyx/framework-comparison-article-cycle-js", target: "_blank" } }, "Github"),
         "!",
       ])
     ]),
