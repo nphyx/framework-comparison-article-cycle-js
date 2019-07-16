@@ -9850,7 +9850,7 @@ function build(articles) {
     }
   }, "Cycle.js"), ". Check out the source on ", Object(_cycle_dom__WEBPACK_IMPORTED_MODULE_0__["a"])({
     props: {
-      href: "https://github.com/nphyx/framework-comparison-article-cyclejs",
+      href: "https://github.com/nphyx/framework-comparison-article-cycle-js",
       target: "_blank"
     }
   }, "Github"), "!"])])]);
