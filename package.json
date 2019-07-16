@@ -1,21 +1,21 @@
 {
-  "name": "toptal-cycle-demo",
+  "name": "framework-comparison-article-cycle-js",
   "version": "1.0.0",
-  "description": "A demo of the Cycle.js framework for the companion Toptal Blog article.",
+  "description": "A demo of the Cycle.js framework for a frontent comparison article.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nphyx/toptal-cycle-demo.git"
+    "url": "git+https://github.com/nphyx/framework-comparison-article-cycle-js.git"
   },
   "author": "Justen Robertson <nphyxx@gmail.com> (http://justen.us)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nphyx/toptal-cycle-demo/issues"
+    "url": "https://github.com/nphyx/framework-comparison-article-cycle-js/issues"
   },
-  "homepage": "https://github.com/nphyx/toptal-cycle-demo#readme",
+  "homepage": "https://github.com/nphyx/framework-comparison-article-cycle-js#readme",
   "devDependencies": {
     "@babel/core": "^7.5.4",
     "@babel/preset-env": "^7.5.4",
