@@ -58,7 +58,7 @@ function main(sources) {
     // since we're connecting the response$ directly to the vdom$, it needs an initial
     // value. in a more complete app we'd have a state driver to manage data but this
     // is fine for now.
-    .startWith({ body: [] })
+    .startWith({ body: false })
 
   // buildDom will handle updating the dom with the query responses
   const vdom$ = response$.map(res => buildDom(res.body))
