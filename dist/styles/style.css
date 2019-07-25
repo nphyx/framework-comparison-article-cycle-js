@@ -123,6 +123,9 @@ body {
   box-shadow: 0 2px 15px -2px rgba(0, 0, 0, 0.6);
   transform: scale(0.96); }
 
+.search-btn[disabled] {
+  opacity: 0.8; }
+
 /* Post list */
 .post-list {
   margin-bottom: 20px; }

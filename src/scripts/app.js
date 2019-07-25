@@ -55,18 +55,27 @@ function main(sources) {
     .select("query result")
     // HTTP.select gives us a stream of streams, let's flatten that into a single stream
     .flatten()
+
+
+  // We'll use the request and response streams to keep track of whether a query is in progress
+  const fetching$ = xs.merge(
+    request$.mapTo(1),
+    response$.mapTo(-1)
+  ).fold((a, c) => a + c, 0)
+
+  // buildDom will handle updating the dom with the query responses
+  const vdom$ = xs.combine(response$, fetching$)
     // since we're connecting the response$ directly to the vdom$, it needs an initial
     // value. in a more complete app we'd have a state driver to manage data but this
     // is fine for now.
-    .startWith({ body: false })
-
-  // buildDom will handle updating the dom with the query responses
-  const vdom$ = response$.map(res => buildDom(res.body))
+    .startWith([{ body: false }, true])
+    .map(([res, fetching]) => buildDom(res.body, !!fetching))
 
   // let's log all requests and responses to console
   const log$ = xs.merge(
     request$.map(req => ({ type: 'query', content: req })),
-    response$.map(res => ({ type: 'response', content: res.body }))
+    response$.map(res => ({ type: 'response', content: res.body })),
+    fetching$.map(fetching => ({ type: 'fetching', content: fetching }))
   )
 
   // the collection of sinks

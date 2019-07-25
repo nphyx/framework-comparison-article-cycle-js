@@ -148,6 +148,10 @@ body {
   transform: scale(0.96);
 }
 
+.search-btn[disabled] {
+  opacity: 0.8;
+}
+
 /* Post list */
 
 .post-list {

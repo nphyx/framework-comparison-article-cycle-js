@@ -3,24 +3,32 @@ import logo from "../../assets/cyclejs_logo.svg"
 
 const entry = (article) => a(".post-list-item", { props: { href: article.url, target: '_blank' } }, article.title)
 
-const buildSearchForm = () => {
+const buildSearchForm = (fetching) => {
   return form(
     '#search-form.search-form',
     { props: { action: "", method: "GET" } },
     [
-      input(".search-input", { props: { name: "q", type: "text", placeholder: "engineering" }, on: { focus: function () { this.select(); console.log('click'); } } }),
-      button(".search-btn", { props: { type: "submit" } }, "search")
+      input(".search-input", {
+        props: {
+          name: "q",
+          type: "text",
+          placeholder: "engineering",
+          disabled: fetching
+        },
+        on: { focus: function () { this.select(); console.log('click'); } } 
+      }),
+      button(".search-btn", { props: { type: "submit", disabled: fetching } }, fetching ? "searching..." : "search")
     ]
   )
 }
 
-export default function build(articles) {
+export default function build(articles, fetching) {
   return div("#app.layout", [
     header(".app-header", 
       div(".layout-container",
         div(".app-header-content", [
           div(".header-image", logo),
-          buildSearchForm(),
+          buildSearchForm(fetching),
         ]),
       ),
     ),
